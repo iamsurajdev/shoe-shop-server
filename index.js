@@ -2,6 +2,9 @@ const express = require("express");
 const sequelize = require("./src/utils/db");
 require("dotenv").config();
 
+// * importing modals
+const Product = require("./src/models/product");
+
 const app = express();
 const PORT = process.env.PORT || 4000;
 
