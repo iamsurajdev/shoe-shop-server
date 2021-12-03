@@ -5,12 +5,18 @@ require("dotenv").config();
 // * importing modals
 const Product = require("./src/models/product");
 
+// * importing routes
+const productRoutes = require("./src/routes/product");
+
 const app = express();
 const PORT = process.env.PORT || 4000;
 
 app.get("/", (req, res) => {
   res.send("Hello World! lol");
 });
+
+// * my routes
+app.use("/api", productRoutes);
 
 sequelize
   .sync()
