@@ -21,6 +21,13 @@ const Product = sequelize.define("product", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  categoryId: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: "categories", // 'fathers' refers to table name
+      key: "id", // 'id' refers to column name in fathers table
+    },
+  },
 });
 
 module.exports = Product;

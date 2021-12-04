@@ -6,9 +6,15 @@ require("dotenv").config();
 
 // * importing modals
 const Product = require("./src/models/product");
+const Category = require("./src/models/category");
+
+// * relationship between tables
+Category.hasMany(Product, { as: "products" });
+Product.belongsTo(Category, { foreignKey: "categoryId", as: "category" });
 
 // * importing routes
 const productRoutes = require("./src/routes/product");
+const categoryRoutes = require("./src/routes/category");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -18,6 +24,7 @@ app.use(cors());
 
 // * my routes
 app.use("/api", productRoutes);
+app.use("/api", categoryRoutes);
 
 sequelize
   .sync()

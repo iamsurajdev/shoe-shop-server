@@ -1,3 +1,4 @@
+const Category = require("../models/category");
 const Product = require("../models/product");
 
 exports.createProduct = (req, res, next) => {
@@ -7,6 +8,7 @@ exports.createProduct = (req, res, next) => {
     price: req.body.price,
     imageUrl: req.body.imageUrl,
     description: req.body.description,
+    categoryId: req.body.categoryId,
   })
     .then((result) => {
       res.send(result);
@@ -16,12 +18,20 @@ exports.createProduct = (req, res, next) => {
     });
 };
 
-exports.getAllProducts = (req, res, next) => {
-  Product.findAll()
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      res.send(err);
+exports.getAllProducts = async (req, res, next) => {
+  try {
+    const result = await Product.findAll({
+      include: [
+        {
+          model: Category,
+          as: "category",
+        },
+      ],
+      // include: Category,
     });
+
+    res.send(result);
+  } catch (error) {
+    res.send(error);
+  }
 };
