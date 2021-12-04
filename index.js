@@ -1,4 +1,6 @@
 const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 const sequelize = require("./src/utils/db");
 require("dotenv").config();
 
@@ -11,9 +13,8 @@ const productRoutes = require("./src/routes/product");
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-app.get("/", (req, res) => {
-  res.send("Hello World! lol");
-});
+app.use(bodyParser.json());
+app.use(cors());
 
 // * my routes
 app.use("/api", productRoutes);
